@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#243b31">
+  <meta name="description" content="Mosaic là không gian trình duyệt nhỏ gọn với nhiều thẻ, chia đôi cửa sổ và ghi chú trên thiết bị của bạn.">
+  <title>Mosaic — Không gian của bạn</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/fonts.css">
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <div class="app-shell" id="app-shell">
+    <aside class="sidebar" aria-label="Thanh bên">
+      <div class="brand-row">
+        <a class="brand" href="#" data-action="navigate-home" aria-label="Mosaic — về trang bắt đầu">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 36 36" fill="none"><rect width="36" height="36" rx="11" fill="#DDEBD9"/><path d="M9 10.5a2 2 0 0 1 2-2h5.2v7.2H9v-5.2Z" fill="#355B47"/><path d="M19.8 8.5H25a2 2 0 0 1 2 2v5.2h-7.2V8.5Z" fill="#72997C"/><path d="M9 19.3h7.2v7.2H11a2 2 0 0 1-2-2v-5.2Z" fill="#72997C"/><path d="M19.8 19.3H27v5.2a2 2 0 0 1-2 2h-5.2v-7.2Z" fill="#355B47"/></svg>
+          </span>
+          <span class="brand-copy"><strong>mosaic<span>.</span></strong><small>KHÔNG GIAN CỦA BẠN</small></span>
+        </a>
+        <button class="side-collapse icon-button" type="button" data-action="collapse-sidebar" aria-label="Thu gọn thanh bên" title="Thu gọn thanh bên" id="collapse-sidebar"></button>
+      </div>
+
+      <div class="sidebar-scroll">
+        <div class="workspace-badge">
+          <span class="workspace-icon" aria-hidden="true">✳</span>
+          <span class="workspace-copy"><strong>Không gian của tôi</strong><small>Một ngày thật tốt lành</small></span>
+          <span class="workspace-chevron" aria-hidden="true">·</span>
+        </div>
+
+        <div class="sidebar-section">
+          <div class="sidebar-label">KHÔNG GIAN</div>
+          <nav class="side-nav" aria-label="Điều hướng chính">
+            <button type="button" class="side-link" data-action="navigate-home" id="side-home" aria-label="Trang bắt đầu" title="Trang bắt đầu"><span data-icon="home"></span><span class="side-text">Trang bắt đầu</span></button>
+            <button type="button" class="side-link" data-action="open-drawer" data-drawer="bookmarks" aria-label="Dấu trang" title="Dấu trang"><span data-icon="bookmark"></span><span class="side-text">Dấu trang</span><span class="side-count" id="bookmark-count"></span></button>
+            <button type="button" class="side-link" data-action="open-drawer" data-drawer="history" aria-label="Lịch sử" title="Lịch sử"><span data-icon="history"></span><span class="side-text">Lịch sử</span></button>
+            <button type="button" class="side-link" data-action="navigate-notes" id="side-notes" aria-label="Ghi chú nhanh" title="Ghi chú nhanh"><span data-icon="note"></span><span class="side-text">Ghi chú nhanh</span></button>
+          </nav>
+        </div>
+
+        <div class="sidebar-section side-shortcuts-section">
+          <div class="sidebar-label label-with-action"><span>LỐI TẮT</span><button type="button" class="sidebar-add" data-action="add-bookmark" title="Thêm lối tắt" aria-label="Thêm lối tắt">+</button></div>
+          <div id="sidebar-shortcuts" class="side-shortcuts"></div>
+        </div>
+      </div>
+
+      <div class="sidebar-bottom">
+        <div class="side-feature">
+          <span class="side-feature-icon" data-icon="split"></span>
+          <p>Thêm không gian<br><strong>cho mọi ý tưởng.</strong></p>
+          <button type="button" data-action="toggle-split" class="side-feature-link"><span id="side-split-label">Chia đôi cửa sổ</span> <span aria-hidden="true">↗</span></button>
+        </div>
+        <button type="button" class="side-link settings-link" data-action="open-drawer" data-drawer="settings" aria-label="Cài đặt" title="Cài đặt"><span data-icon="settings"></span><span class="side-text">Cài đặt</span></button>
+        <button type="button" class="profile" data-action="open-drawer" data-drawer="about" aria-label="Thông tin về Mosaic">
+          <span class="profile-avatar">M</span><span class="profile-copy"><strong>Không gian của bạn</strong><small>Phiên cá nhân</small></span><span class="profile-dots">···</span>
+        </button>
+      </div>
+    </aside>
+
+    <main class="browser" aria-label="Trình duyệt Mosaic">
+      <header class="topbar">
+        <button type="button" class="expand-sidebar icon-button" data-action="collapse-sidebar" title="Mở rộng thanh bên" aria-label="Mở rộng thanh bên"><span data-icon="panel"></span></button>
+        <div class="tab-list" id="tab-list" role="group" aria-label="Các thẻ đang mở"></div>
+        <button type="button" class="new-tab icon-button" data-action="new-tab" title="Thẻ mới (Ctrl/⌘ + T)" aria-label="Mở thẻ mới"><span data-icon="plus"></span></button>
+        <div class="topbar-spacer"></div>
+        <button type="button" class="split-toggle" id="split-toggle" data-action="toggle-split" aria-pressed="true" title="Bật hoặc tắt chia đôi"><span data-icon="split"></span><span class="split-text">Chia đôi</span><span class="split-indicator"></span></button>
+        <div class="topbar-divider"></div>
+        <button type="button" class="top-menu-button icon-button" data-action="toggle-menu" aria-label="Menu trình duyệt" aria-haspopup="menu" aria-expanded="false" title="Menu"><span data-icon="more"></span></button>
+        <div class="menu-popover hidden" id="menu-popover" role="menu"></div>
+      </header>
+
+      <div class="stage is-split" id="stage" style="--split: 58%;">
+        <div class="split-divider" id="split-divider" role="separator" tabindex="0" aria-label="Thay đổi kích thước cửa sổ chia đôi" aria-orientation="vertical" aria-valuemin="25" aria-valuemax="75" aria-valuenow="58" title="Kéo để thay đổi kích thước"><span></span></div>
+      </div>
+      <footer class="browser-status">
+        <div><span class="status-sparkle">✳</span> <strong>MOSAIC</strong><span class="status-separator">/</span><span>Một góc nhỏ của riêng bạn</span></div>
+        <div><span class="status-dot"></span><span>Lưu trên thiết bị này</span></div>
+      </footer>
+    </main>
+
+    <div class="drawer-layer hidden" id="drawer-layer" aria-hidden="true">
+      <div class="drawer-backdrop" data-action="close-drawer"></div>
+      <section class="drawer" role="dialog" aria-modal="true" aria-labelledby="drawer-title">
+        <div class="drawer-head"><div><div class="drawer-overline">KHÔNG GIAN CỦA BẠN</div><h2 id="drawer-title"></h2></div><button type="button" class="drawer-close icon-button" data-action="close-drawer" aria-label="Đóng"><span data-icon="x"></span></button></div>
+        <div class="drawer-content" id="drawer-content"></div>
+      </section>
+    </div>
+  </div>
+
+  <dialog id="bookmark-dialog" class="app-dialog" aria-labelledby="bookmark-dialog-title">
+    <form id="bookmark-form" class="dialog-form" novalidate>
+      <div class="dialog-top"><span class="dialog-icon" data-icon="bookmark"></span><button type="button" class="icon-button" data-action="close-bookmark-dialog" aria-label="Đóng"><span data-icon="x"></span></button></div>
+      <h2 id="bookmark-dialog-title">Thêm lối tắt</h2>
+      <p>Giữ những trang bạn thường dùng ở ngay trong tầm tay.</p>
+      <label for="bookmark-name">Tên lối tắt</label><input id="bookmark-name" name="name" required maxlength="60" placeholder="Ví dụ: Wikipedia" autocomplete="off">
+      <label for="bookmark-url">Địa chỉ trang web</label><input id="bookmark-url" name="url" required placeholder="https://example.com" autocomplete="url" spellcheck="false" inputmode="url">
+      <label class="check-row"><input type="checkbox" id="bookmark-external" name="external"><span>Mở trong tab trình duyệt mới</span></label>
+      <div class="form-error" id="bookmark-error" role="alert"></div>
+      <div class="dialog-actions"><button type="button" class="button-secondary" data-action="close-bookmark-dialog">Hủy</button><button type="submit" class="button-primary">Thêm lối tắt <span aria-hidden="true">↗</span></button></div>
+    </form>
+  </dialog>
+  <div class="toast-container" id="toast-container" aria-live="polite" aria-atomic="false"></div>
+  <noscript><div class="noscript">Mosaic cần JavaScript để hoạt động. Hãy bật JavaScript trong trình duyệt của bạn.</div></noscript>
+</body>
+</html>
